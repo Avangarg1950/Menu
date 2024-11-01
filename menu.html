@@ -22,6 +22,10 @@
           border: none;
           text-align: left;
           border-radius: 5px;
+          transition: background 0.3s;
+      }
+      .menu-item:hover {
+          background-color: #e0b030;
       }
       .submenu {
           display: none;
@@ -47,8 +51,8 @@
 
 <h2>Выпадающее меню интернет-магазина DeWalt</h2>
 <div class="menu">
-  <button class="menu-item">Категории</button>
-  <div class="submenu">
+  <button class="menu-item" onclick="toggleMainMenu()">Категории</button>
+  <div class="submenu" id="mainMenu">
       <div class="submenu-item" onclick="toggleSubmenu(event, 'power_tools')">Электроинструменты</div>
       <div class="submenu-item" onclick="toggleSubmenu(event, 'hand_tools')">Ручные инструменты</div>
       <div class="submenu-item" onclick="toggleSubmenu(event, 'accessories')">Аксессуары</div>
@@ -74,31 +78,30 @@
 </div>
 
 <script>
-  // Toggle the display of the submenu.
-  // @param {MouseEvent} event The event that triggered the function.
-  // @param {string} submenuId The ID of the submenu to toggle.
-  function toggleSubmenu(event, submenuId) {
-    console.log(`toggleSubmenu: event=${event}, submenuId=${submenuId}`);
-    event?.stopPropagation();
-    const submenu = document.getElementById(submenuId);
-    if (submenu && submenu.style.display !== 'block') {
-      submenu.style.display = 'block';
-    } else if (submenu) {
-      submenu.style.display = 'none';
-    }
+  function toggleMainMenu() {
+    const mainMenu = document.getElementById('mainMenu');
+    mainMenu.style.display = mainMenu.style.display === 'block' ? 'none' : 'block';
   }
 
-  // Закрытие всех подменю при клике вне меню
+  function toggleSubmenu(event, submenuId) {
+    event.stopPropagation();
+    const submenu = document.getElementById(submenuId);
+    const allSubmenus = document.querySelectorAll('.submenu');
+
+    allSubmenus.forEach(sub => {
+      if (sub !== submenu) {
+        sub.style.display = 'none';
+      }
+    });
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+  }
+
   document.addEventListener('click', function(event) {
-    console.log(`document click: event=${event}`);
-    if (event && event.target) {
-      const submenus = document.querySelectorAll('.submenu');
-      submenus.forEach(submenu => submenu.style.display = 'none');
-    }
+    const submenus = document.querySelectorAll('.submenu');
+    submenus.forEach(submenu => submenu.style.display = 'none');
   });
 </script>
 
 </body>
 </html>
-
-
