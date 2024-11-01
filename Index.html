@@ -74,23 +74,32 @@
 </div>
 
 <script>
-  document.querySelector('.menu-item').addEventListener('click', function() {
-      const submenu = this.nextElementSibling;
-      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-  });
-
+  /**
+   * Toggle the display of the submenu.
+   * @param {MouseEvent} event The event that triggered the function.
+   * @param {string} submenuId The ID of the submenu to toggle.
+   */
   function toggleSubmenu(event, submenuId) {
+      if (!event || !submenuId) {
+          return;
+      }
+
       event.stopPropagation();
       const submenu = document.getElementById(submenuId);
-      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+      if (submenu) {
+          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+      }
   }
 
   // Закрытие всех подменю при клике вне меню
-  document.addEventListener('click', function() {
-      const submenus = document.querySelectorAll('.submenu');
-      submenus.forEach(submenu => submenu.style.display = 'none');
+  document.addEventListener('click', function(event) {
+      if (event && event.target) {
+          const submenus = document.querySelectorAll('.submenu');
+          submenus.forEach(submenu => submenu.style.display = 'none');
+      }
   });
 </script>
 
 </body>
 </html>
+
