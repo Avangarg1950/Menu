@@ -51,55 +51,32 @@
 
 <h2>Выпадающее меню интернет-магазина DeWalt</h2>
 <div class="menu">
-  <button class="menu-item" onclick="toggleMainMenu()">Категории</button>
-  <div class="submenu" id="mainMenu">
-      <div class="submenu-item" onclick="toggleSubmenu(event, 'power_tools')">Электроинструменты</div>
-      <div class="submenu-item" onclick="toggleSubmenu(event, 'hand_tools')">Ручные инструменты</div>
-      <div class="submenu-item" onclick="toggleSubmenu(event, 'accessories')">Аксессуары</div>
+  <button class="menu-item">Меню</button>
+  <div class="submenu">
+      <div class="submenu-item">Инструменты</div>
+      <div class="submenu-item">Евгений Матвеев</div>
+      <div class="submenu-item">Я люблю JS</div>
   </div>
 </div>
 
-<div class="submenu" id="power_tools">
-  <div class="submenu-item">Дрели</div>
-  <div class="submenu-item">Перфораторы</div>
-  <div class="submenu-item">Шуруповерты</div>
-</div>
-
-<div class="submenu" id="hand_tools">
-  <div class="submenu-item">Молотки</div>
-  <div class="submenu-item">Отвертки</div>
-  <div class="submenu-item">Плоскогубцы</div>
-</div>
-
-<div class="submenu" id="accessories">
-  <div class="submenu-item">Буры</div>
-  <div class="submenu-item">Насадки</div>
-  <div class="submenu-item">Сумки для инструментов</div>
-</div>
-
 <script>
-  function toggleMainMenu() {
-    const mainMenu = document.getElementById('mainMenu');
-    mainMenu.style.display = mainMenu.style.display === 'block' ? 'none' : 'block';
-  }
+  const menu = document.querySelector('.menu');
+  const submenu = menu.querySelector('.submenu');
 
-  function toggleSubmenu(event, submenuId) {
-    event.stopPropagation();
-    const submenu = document.getElementById(submenuId);
-    const allSubmenus = document.querySelectorAll('.submenu');
+  menu.addEventListener('mouseenter', () => {
+    submenu.style.display = 'block';
+  });
 
-    allSubmenus.forEach(sub => {
-      if (sub !== submenu) {
-        sub.style.display = 'none';
-      }
-    });
+  menu.addEventListener('mouseleave', () => {
+    submenu.style.display = 'none';
+  });
 
-    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-  }
+  submenu.addEventListener('mouseenter', () => {
+    submenu.style.display = 'block';
+  });
 
-  document.addEventListener('click', function(event) {
-    const submenus = document.querySelectorAll('.submenu');
-    submenus.forEach(submenu => submenu.style.display = 'none');
+  submenu.addEventListener('mouseleave', () => {
+    submenu.style.display = 'none';
   });
 </script>
 
