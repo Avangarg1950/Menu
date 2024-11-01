@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Выпадающее меню</title>
+  <title>Выпадающее меню DeWalt</title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -11,91 +11,84 @@
           padding: 20px;
       }
       .menu {
-          list-style-type: none;
-          padding: 0;
           position: relative;
+          display: inline-block;
       }
       .menu-item {
-          position: relative;
+          padding: 10px 20px;
+          background-color: #f0c040;
+          color: #333;
           cursor: pointer;
-          padding: 10px;
-          background: #4CAF50;
-          color: white;
-          margin: 5px 0;
+          border: none;
+          text-align: left;
           border-radius: 5px;
       }
       .submenu {
           display: none;
           position: absolute;
-          left: 100%;
-          top: 0;
-          background: #333;
-          padding: 0;
-          border-radius: 5px;
+          left: 0;
+          top: 100%;
+          background-color: #f0c040;
+          min-width: 200px;
           z-index: 1;
+          border-radius: 5px;
       }
       .submenu-item {
           padding: 10px;
-          background: #4CAF50;
-          color: white;
-          margin: 0;
-          border-radius: 5px;
+          color: #333;
+          cursor: pointer;
       }
       .submenu-item:hover {
-          background: #45a049;
-      }
-      .menu-item:hover > .submenu {
-          display: block;
+          background-color: #e0b030;
       }
   </style>
 </head>
 <body>
 
-<h2>Выпадающее меню на три уровня</h2>
-<ul class="menu">
-  <li class="menu-item">Уровень 1
-      <ul class="submenu">
-          <li class="submenu-item" onclick="toggleSubmenu(event)">Подменю 1
-              <ul class="submenu">
-                  <li class="submenu-item">Подменю 1.1</li>
-                  <li class="submenu-item">Подменю 1.2</li>
-              </ul>
-          </li>
-          <li class="submenu-item" onclick="toggleSubmenu(event)">Подменю 2
-              <ul class="submenu">
-                  <li class="submenu-item">Подменю 2.1</li>
-                  <li class="submenu-item">Подменю 2.2</li>
-              </ul>
-          </li>
-      </ul>
-  </li>
-  <li class="menu-item">Уровень 2
-      <ul class="submenu">
-          <li class="submenu-item" onclick="toggleSubmenu(event)">Подменю 3
-              <ul class="submenu">
-                  <li class="submenu-item">Подменю 3.1</li>
-                  <li class="submenu-item">Подменю 3.2</li>
-              </ul>
-          </li>
-      </ul>
-  </li>
-</ul>
+<h2>Выпадающее меню интернет-магазина DeWalt</h2>
+<div class="menu">
+  <button class="menu-item">Категории</button>
+  <div class="submenu">
+      <div class="submenu-item" onclick="toggleSubmenu(event, 'power_tools')">Электроинструменты</div>
+      <div class="submenu-item" onclick="toggleSubmenu(event, 'hand_tools')">Ручные инструменты</div>
+      <div class="submenu-item" onclick="toggleSubmenu(event, 'accessories')">Аксессуары</div>
+  </div>
+</div>
+
+<div class="submenu" id="power_tools">
+  <div class="submenu-item">Дрели</div>
+  <div class="submenu-item">Перфораторы</div>
+  <div class="submenu-item">Шуруповерты</div>
+</div>
+
+<div class="submenu" id="hand_tools">
+  <div class="submenu-item">Молотки</div>
+  <div class="submenu-item">Отвертки</div>
+  <div class="submenu-item">Плоскогубцы</div>
+</div>
+
+<div class="submenu" id="accessories">
+  <div class="submenu-item">Буры</div>
+  <div class="submenu-item">Насадки</div>
+  <div class="submenu-item">Сумки для инструментов</div>
+</div>
 
 <script>
-  function toggleSubmenu(event) {
-      const submenu = event.currentTarget.querySelector('.submenu');
-      if (submenu) {
-          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-      }
-      event.stopPropagation(); // Остановить всплытие события
+  document.querySelector('.menu-item').addEventListener('click', function() {
+      const submenu = this.nextElementSibling;
+      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  function toggleSubmenu(event, submenuId) {
+      event.stopPropagation();
+      const submenu = document.getElementById(submenuId);
+      submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
   }
 
-  // Закрытие подменю при клике вне меню
+  // Закрытие всех подменю при клике вне меню
   document.addEventListener('click', function() {
       const submenus = document.querySelectorAll('.submenu');
-      submenus.forEach(submenu => {
-          submenu.style.display = 'none';
-      });
+      submenus.forEach(submenu => submenu.style.display = 'none');
   });
 </script>
 
